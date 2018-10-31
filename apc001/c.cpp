@@ -2,26 +2,20 @@
 #include<string.h>
 int c[100010];
 char s[10];
-//#define local
-#ifdef local
-#include"head.h"
-void work(){
-#else
-	int getn(){
-		int n;
-		scanf("%d",&n);
-		return n;
-	}
-	int get(int x){
-		if(~c[x])return c[x];
-		printf("%d\n",x);
-		fflush(stdout);
-		scanf("%s",s);
-		if(s[0]=='V')throw 0;
-		return c[x]=s[0]=='M';
-	}
+int getn(){
+	int n;
+	scanf("%d",&n);
+	return n;
+}
+int get(int x){
+	if(~c[x])return c[x];
+	printf("%d\n",x);
+	fflush(stdout);
+	scanf("%s",s);
+	if(s[0]=='V')throw 0;
+	return c[x]=s[0]=='M';
+}
 int main(){
-#endif
 	int n,l,r,mid;
 	memset(c,-1,sizeof(c));
 	n=getn();
