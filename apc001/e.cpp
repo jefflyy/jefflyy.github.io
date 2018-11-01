@@ -1,6 +1,4 @@
 #include<stdio.h>
-#include<algorithm>
-using namespace std;
 int h[100010],nex[200010],to[200010],M;
 void add(int a,int b){
 	M++;
