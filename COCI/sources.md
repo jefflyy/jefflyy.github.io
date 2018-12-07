@@ -7,3 +7,4 @@
 | prostor | 2006#6 |
 | staza   | 2007#1 |
 | zapis   | 2007#1 |
+| kocke   | 2007#4 |
