@@ -43,7 +43,7 @@ int main(){
 	pw[0]=1;
 	int i;
 	ll L,R,s;
-	for( i=1;i<=18;i++)pw[i]=pw[i-1]*10;
+	for(i=1;i<=18;i++)pw[i]=pw[i-1]*10;
 	scanf("%I64d%I64d",&L,&R);
 	memset(f,-1,sizeof(f));
 	s=0;
