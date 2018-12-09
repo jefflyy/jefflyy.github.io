@@ -9,3 +9,4 @@
 | zapis     | 2007#1 |
 | kocke     | 2007#4 |
 | cestarine | 2007#6 |
+| umnozak   | 2007O  |
