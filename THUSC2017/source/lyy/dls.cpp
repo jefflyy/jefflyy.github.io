@@ -1,9 +1,11 @@
 #include<stdio.h>
-#include<string.h>
 #include<algorithm>
+#include<bitset>
+#include<map>
 using namespace std;
-typedef unsigned long long ll;
-const int mod=998244353,T=1e4,len=16,inf=2147483647;
+typedef long long ll;
+typedef bitset<450> bs;
+const int T=1e7,sq=3162,mod=998244353;
 int mul(int a,int b){return(ll)a*b%mod;}
 int pow(int a,int b){
 	int s=1;
@@ -14,108 +16,73 @@ int pow(int a,int b){
 	}
 	return s;
 }
-int pr[T+10],d[T+10];
+int pr[T+10],d[T+10],md[T+10],M;
 bool np[T+10];
 void sieve(){
-	int i,j,M=0;
-	d[1]=1;
+	int i,j;
+	d[1]=md[1]=1;
 	for(i=2;i<=T;i++){
-		if(!np[i])d[pr[++M]=i]=i;
+		if(!np[i]){
+			pr[++M]=i;
+			d[i]=md[i]=i;
+		}
 		for(j=1;j<=M&&i*pr[j]<=T;j++){
 			np[i*pr[j]]=1;
 			d[i*pr[j]]=d[i]%pr[j]?d[i]*pr[j]:d[i]/pr[j];
+			md[i*pr[j]]=max(md[i],pr[j]);
 			if(i%pr[j]==0)break;
 		}
 	}
 }
-int cu(unsigned x){
-	#define bc __builtin_ctz
-	return x&65535?bc(x&65535):bc(x>>16)+16;
-}
-int cl(ll x){
-	return x&4294967295ll?cu(x&4294967295ll):cu(x>>32)+32;
-}
-struct bitset{
-	ll a[len];
-	void reset(){
-		for(int i=0;i<len;i++)a[i]=0;
-	}
-	int lowbit(){
-		for(int i=0;i<len;i++){
-			if(a[i])return cl(a[i])+(i<<6);
-		}
-		return-1;
-	}
-	void set(int k){
-		a[k>>6]|=1ull<<(k&63);
-	}
-	int get(int k){
-		return a[k>>6]>>(k&63)&1;
-	}
-	void operator^=(const bitset&b){
-		for(int i=0;i<len;i++)a[i]^=b.a[i];
-	}
-	bool any(){
-		for(int i=0;i<len;i++){
-			if(a[i])return 1;
-		}
-		return 0;
-	}
-	void out(){
-		for(int i=0;i<30;i++)putchar(a[0]>>i&1?'#':' ');
-		putchar('\n');
-	}
-}b[1010];
-int M;
-bool us[1010];
-void work(){
-	int l,r,i,j,s,t,mn,p;
-	bool flag;
-	scanf("%d%d",&l,&r);
-	M=0;
-	for(j=1;pr[j]<=r;j++){
-		flag=0;
-		for(i=l;i<=r;i++){
-			if(d[i]%pr[j]==0){
-				flag=1;
-				break;
-			}
-		}
-		if(flag){
-			b[++M].reset();
-			for(i=l;i<=r;i++){
-				if(d[i]%pr[j]==0)b[M].set(i-l);
-			}
-		}
-	}
-	memset(us,0,sizeof(us));
+bs b[450],t;
+map<int,bs>mp;
+void gao(int l,int r){
+	int i,s;
 	s=0;
-	while(1){
-		mn=inf;
-		p=0;
-		for(i=1;i<=M;i++){
-			if(!us[i]){
-				t=b[i].lowbit();
-				if(t<mn){
-					mn=t;
-					p=i;
+	for(i=1;i<=664579;i++)s+=((l-1)/pr[i]<r/pr[i]);
+	printf("%d\n",pow(2,r-l+1-s));
+}
+void work(){
+	int l,r,i,j,s,cnt;
+	scanf("%d%d",&l,&r);
+	if(r-l>=6000)return gao(l,r);
+	for(i=1;i<=M;i++)b[i].reset();
+	mp.clear();
+	s=0;
+	cnt=0;
+	for(i=l;i<=r;i++){
+		if((md[i]<=sq||mp.count(md[i]))&&cnt==M)continue;
+		t.reset();
+		for(j=1;j<=M;j++){
+			if(d[i]%pr[j]==0)t.set(j);
+		}
+		if(md[i]>sq){
+			if(mp.count(md[i]))
+				t^=mp[md[i]];
+			else{
+				mp[md[i]]=t;
+				s++;
+				continue;
+			}
+		}
+		for(j=1;j<=M;j++){
+			if(t[j]){
+				if(b[j].any())
+					t^=b[j];
+				else{
+					b[j]=t;
+					cnt++;
+					break;
 				}
 			}
 		}
-		if(!p)break;
-		s++;
-		for(i=1;i<=M;i++){
-			if(!us[i]&&i!=p&&b[i].lowbit()==mn)b[i]^=b[p];
-		}
-		us[p]=1;
-		for(i=1;i<=M;i++){
-			if(!us[i]&&!b[i].any())us[i]=1;
-		}
 	}
+	s+=cnt;
 	printf("%d\n",pow(2,r-l+1-s));
 }
 int main(){
 	sieve();
+	M=446;
 	int T;
 	scanf("%d",&T);
 	while(T--)work();
