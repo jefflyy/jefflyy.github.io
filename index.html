@@ -1,7 +1,15 @@
 <head>
   <title>orzyww</title>
 </head>
-<img src="yww.png" style="display:block;margin:auto"/>
-<video autoplay="autoplay">
-  <source src="song.mp4" type="video/mp4"/>
-</video>
+<body onload="gao()">
+  <img src="yww.png" style="display:block;margin:auto"/>
+  <video id="fafa">
+    <source src="song.mp4" type="video/mp4"/>
+  </video>
+</body>
+<script>
+  function gao(){
+    console.log("fafa");
+    document.getElementById("fafa").play();
+  }
+</script>
