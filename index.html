@@ -1,14 +1,14 @@
 <head>
   <title>orzyww</title>
 </head>
-<body onload="gao()">
+<body>
   <img src="yww.png" style="display:block;margin:auto"/>
   <video id="fafa">
     <source src="song.mp4" type="video/mp4"/>
   </video>
 </body>
 <script>
-  function gao(){
+  window.onload=function(){
     console.log("fafa");
     document.getElementById("fafa").play();
   }
