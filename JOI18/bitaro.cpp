@@ -50,7 +50,6 @@ int main(){
 	M=0;
 	for(x=1;x<=n;x++){
 		for(i=h[x];i;i=nex[i])merge(g[x],g[to[i]]);
-		
 		for(pr&t:g[x])t.v++;
 		if(g[x].size()<B)g[x].push_back(pr(x,0));
 	}
