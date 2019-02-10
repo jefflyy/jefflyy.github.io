@@ -116,10 +116,7 @@ int main(){
 			w[++M]=y[j]-1+C-y[i];
 		}
 	}
-	for(i=1;i<=N;i++){
-		w[++M]=y[i]-1;
-		w[++M]=C-y[i];
-	}
+	w[++M]=C-1;
 	sort(w+1,w+M+1);
 	M=unique(w+1,w+M+1)-w-1;
 	ans=R+C-2;
