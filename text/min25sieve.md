@@ -23,4 +23,4 @@ for p=2 to n
 
 外层sigma只用算到最大的$j$满足$p_j^2\leq n$，剩下的部分是$g_n-g_{p_j}$
 
-这里是$O(n^{1-\epsilon})$，实测在较小的数据范围表现得和$O\left(\frac{n^{\frac34}}{\log n}\right)$差不多
+这里是$O(n^{1-\epsilon})$，实测在较小的数据范围表现得和$O\left(\frac{n^{\frac34}}{\log n}\right)$差不多，还要乘上算/递推$f\left(p^k\right)$的时间
